@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Nomination</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            font-family: 'AccuraBold', Arial, sans-serif;
+            background-color: #121212;
+            color: #ffcc00;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            width: 200px;
+        }
+
+        h1 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="SOTC Logo">
+    </div>
+
+    <h1>New Nomination</h1>
+
+    <!-- Airtable Form Embed -->
+    <iframe class="airtable-embed" src="https://airtable.com/embed/appgMbgf481UnbAe6/pagDi1RVdbSAf6R1r/form" frameborder="0" onmousewheel="" width="100%" height="800" style="background: transparent; border: 1px solid #ccc;"></iframe>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Existing SOTC Athlete</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            font-family: 'AccuraBold', Arial, sans-serif;
+            background-color: #121212;
+            color: #ffcc00;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            width: 200px;
+        }
+
+        h1 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        textarea {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 300px;
+            height: 100px;
+            background-color: #000000;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ffcc00;
+            color: #000000;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 5px;
+        }
+
+        button:hover {
+            background-color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="SOTC Logo">
+    </div>
+
+    <h1>Existing SOTC Athlete</h1>
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" readonly>
+
+        <label for="dob">Date of Birth</label>
+        <input type="text" id="dob" readonly>
+
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" readonly>
+
+        <label for="sport">Sport</label>
+        <input type="text" id="sport" readonly>
+
+        <label for="discipline">Discipline</label>
+        <input type="text" id="discipline" readonly>
+
+        <label for="support">Current Support Level</label>
+        <input type="text" id="support" readonly>
+
+        <label for="commitment">Commitment</label>
+        <input type="text" id="commitment" readonly>
+
+        <label for="target">On Target</label>
+        <input type="text" id="target" readonly>
+
+        <label for="injuryStatus">Injury Status</label>
+        <input type="text" id="injuryStatus" readonly>
+
+        <label for="comments">Comments</label>
+        <textarea id="comments" readonly></textarea>
+    </div>
+
+    <button onclick="history.back()">Back</button>
+
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                fullName: params.get('fullName'),
+                dob: params.get('dob'),
+                gender: params.get('gender'),
+                sport: params.get('sport'),
+                discipline: params.get('discipline'),
+                support: params.get('support'),
+                commitment: params.get('commitment'),
+                target: params.get('target'),
+                injuryStatus: params.get('injuryStatus'),
+                comments: params.get('comments')
+            };
+        }
+
+        // Prefill form fields with data from query parameters
+        const athleteData = getQueryParams();
+        document.getElementById('fullName').value = athleteData.fullName || 'N/A';
+        document.getElementById('dob').value = athleteData.dob || 'N/A';
+        document.getElementById('gender').value = athleteData.gender || 'N/A';
+        document.getElementById('sport').value = athleteData.sport || 'N/A';
+        document.getElementById('discipline').value = athleteData.discipline || 'N/A';
+        document.getElementById('support').value = athleteData.support || 'N/A';
+        document.getElementById('commitment').value = athleteData.commitment || 'N/A';
+        document.getElementById('target').value = athleteData.target || 'N/A';
+        document.getElementById('injuryStatus').value = athleteData.injuryStatus || 'N/A';
+        document.getElementById('comments').value = athleteData.comments || '';
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Sport</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            background-color: #121212; /* Black background */
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00; /* Yellow color */
+        }
+        select, button {
+            background-color: #ffcc00;
+            color: #000;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Sport</h1>
+    <form method="POST">
+        <select name="sport">
+            <option value="jiu-jitsu">Jiu-Jitsu</option>
+            <option value="judo">Judo</option>
+            <option value="wrestling">Wrestling</option>
+            <option value="taekwondo">Taekwondo</option>
+            <option value="karate">Karate</option>
+        </select>
+        <br>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

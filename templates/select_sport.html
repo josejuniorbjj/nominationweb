@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Existing SOTC Athlete</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            font-family: 'AccuraBold', Arial, sans-serif;
+            background-color: #121212;
+            color: #ffcc00;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            width: 200px;
+        }
+
+        h1 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: #ffcc00;
+            font-size: 24px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #ffcc00;
+            margin-top: 15px;
+            display: block;
+            text-align: left;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        select, input, textarea {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 300px;
+            display: inline-block;
+            background-color: #000000;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(255, 255, 0, 0.2);
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ffcc00;
+            color: #000000;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 20px 5px;
+        }
+
+        button:hover {
+            background-color: #e6b800;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        #athleteInfo {
+            margin-top: 30px;
+            display: none;
+            border: 2px solid #ffcc00;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #1a1a1a;
+        }
+
+        @font-face {
+            font-family: 'AccuraBold';
+            src: url('/static/fonts/accura-bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            select, input, textarea {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="SOTC Logo">
+    </div>
+
+    <h1>Existing SOTC Athlete</h1>
+    <h2>Make a Selection</h2>
+
+    <!-- Sport Selection Dropdown -->
+    <div class="form-group">
+        <label for="sportSelect">Select a Sport</label>
+        <select id="sportSelect">
+            <option value="">Select a Sport</option>
+        </select>
+    </div>
+
+    <!-- Athlete Selection Dropdown -->
+    <div class="form-group" id="athleteSelectGroup" style="display: none;">
+        <label for="athleteSelect">Select an Athlete</label>
+        <select id="athleteSelect">
+            <option value="">Select an Athlete</option>
+        </select>
+    </div>
+
+    <!-- Athlete Information Form -->
+    <div id="athleteInfo">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" readonly>
+
+        <label for="dob">Date of Birth</label>
+        <input type="text" id="dob" readonly>
+
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" readonly>
+
+        <label for="sport">Sport</label>
+        <input type="text" id="sport" readonly>
+
+        <label for="discipline">Discipline</label>
+        <input type="text" id="discipline" readonly>
+
+        <label for="support">Current Support Level</label>
+        <input type="text" id="support" readonly>
+
+        <label for="commitment">Commitment</label>
+        <input type="text" id="commitment" readonly>
+
+        <label for="target">On Target</label>
+        <input type="text" id="target" readonly>
+
+        <label for="injuryStatus">Injury Status</label>
+        <input type="text" id="injuryStatus" readonly>
+
+        <label for="comments">Comments</label>
+        <textarea id="comments" readonly></textarea>
+
+        <div class="button-group">
+            <button onclick="history.back()">Back</button>
+            <button id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Code with Manually Embedded Athlete Data -->
+    <script src="{{ url_for('static', filename='js/athletes_data.js') }}"></script>
+    
+    <script>
+        const sportSelect = document.getElementById('sportSelect');
+        const athleteSelect = document.getElementById('athleteSelect');
+        const athleteInfo = document.getElementById('athleteInfo');
+
+        // Populate sports dropdown in alphabetical order
+        const sportsList = Object.values(athletes).map(a => a.Sport);
+        const uniqueSports = [...new Set(sportsList)].sort();
+        uniqueSports.forEach(sport => {
+            const option = document.createElement('option');
+            option.value = sport;
+            option.textContent = sport;
+            sportSelect.appendChild(option);
+        });
+
+        sportSelect.addEventListener('change', function () {
+            const selectedSport = this.value;
+            athleteSelect.innerHTML = '<option value="">Select an Athlete</option>';
+            let foundAthletes = false;
+
+            // Filter athletes by selected sport and populate athlete dropdown
+            Object.keys(athletes).forEach(athleteName => {
+                if (athletes[athleteName]["Sport"] === selectedSport) {
+                    const option = document.createElement('option');
+                    option.value = athleteName;
+                    option.textContent = athleteName;
+                    athleteSelect.appendChild(option);
+                    foundAthletes = true;
+                }
+            });
+
+            if (foundAthletes) {
+                document.getElementById('athleteSelectGroup').style.display = 'block';
+            } else {
+                document.getElementById('athleteSelectGroup').style.display = 'none';
+            }
+        });
+
+        athleteSelect.addEventListener('change', function () {
+            const selectedAthlete = this.value;
+            const athlete = athletes[selectedAthlete];
+
+            if (athlete) {
+                document.getElementById('fullName').value = athlete["Full Name"] || "N/A";
+                document.getElementById('dob').value = athlete["Date of Birth"] || "N/A";
+                document.getElementById('gender').value = athlete["Gender"] || "N/A";
+                document.getElementById('sport').value = athlete["Sport"] || "N/A";
+                document.getElementById('discipline').value = athlete["Discipline"] || "N/A";
+                document.getElementById('support').value = athlete["Current Support Level"] || "N/A";
+                document.getElementById('commitment').value = athlete["Commitment"] || "N/A";
+                document.getElementById('target').value = athlete["On Target"] || "N/A";
+                document.getElementById('injuryStatus').value = athlete["Injury Status"] || "N/A";
+                document.getElementById('comments').value = athlete["Comments"] || "";
+                athleteInfo.style.display = 'block';
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            const fullName = document.getElementById('fullName').value;
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const sport = document.getElementById('sport').value;
+            const discipline = document.getElementById('discipline').value;
+            const support = document.getElementById('support').value;
+            const commitment = document.getElementById('commitment').value;
+            const target = document.getElementById('target').value;
+            const injuryStatus = document.getElementById('injuryStatus').value;
+            const comments = document.getElementById('comments').value;
+
+            // Construct the Airtable form URL with prefilled fields based on your table structure
+            const airtableURL = `https://airtable.com/embed/appgMbgf481UnbAe6/pag1JabUxwWoEjLQV/form?prefill_Full+Name=${encodeURIComponent(fullName)}&prefill_Date+of+Birth=${encodeURIComponent(dob)}&prefill_Gender=${encodeURIComponent(gender)}&prefill_Sport=${encodeURIComponent(sport)}&prefill_Discipline=${encodeURIComponent(discipline)}&prefill_Current+Support+Level=${encodeURIComponent(support)}&prefill_Commitment=${encodeURIComponent(commitment)}&prefill_On+Target=${encodeURIComponent(target)}&prefill_Injury+Status=${encodeURIComponent(injuryStatus)}&prefill_Comments=${encodeURIComponent(comments)}`;
+
+            // Redirect to the Airtable form with the prefilled data
+            window.location.href = airtableURL;
+        });
+    </script>
+</body>
+</html>
+

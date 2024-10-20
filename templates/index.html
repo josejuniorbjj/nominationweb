@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomination Web</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            background-color: #121212; /* Black background */
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00; /* Yellow color */
+        }
+        button {
+            background-color: #ffcc00; /* Yellow button */
+            color: #000;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="200">
+    </div>
+    <h1>SOTC Nomination 2025</h1>
+    <form method="POST">
+        <!-- New Nomination Button (link this to your new nomination form) -->
+        <button name="nomination" value="new">New Nomination</button> <!-- Added New Nomination button -->
+        
+        <!-- Existing Nomination Button -->
+        <button name="nomination" value="existing">Existing Nomination</button>
+    </form>
+</body>
+</html>
